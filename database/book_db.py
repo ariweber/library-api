@@ -5,11 +5,12 @@ class BookDB:
     def __init__(self):
         pass
 
-    def create_book(self,title:str,  ):
+    def create_book(self,data: dict):
         conn = get_connection()
         cursor = conn.cursor()
         sql = "INSERT INTO books (title, author, genre) VALUES (%s, %s, %s)"
-        cursor.execute(sql,data)
+        values =(data["title"], data["author"], data["genre"]) 
+        cursor.execute(sql, values)
         conn.commit()
         new_id = cursor.lastrowid
         cursor.close()

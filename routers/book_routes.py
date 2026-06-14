@@ -18,5 +18,5 @@ router = APIRouter(prefix="/books")
 
 @router.post("/", status_code=201)
 def add_abook(data: BooksIN):
-   return crud.create_book(**data)
+   return crud.create_book(data.model_dump())
 
