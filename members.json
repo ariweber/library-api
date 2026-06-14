@@ -1,0 +1,202 @@
+[
+  {
+    "name": "Yossi Cohen",
+    "email": "member1@example.com"
+  },
+  {
+    "name": "David Levi",
+    "email": "member2@example.com"
+  },
+  {
+    "name": "Moshe Katz",
+    "email": "member3@example.com"
+  },
+  {
+    "name": "Chaim Mizrahi",
+    "email": "member4@example.com"
+  },
+  {
+    "name": "Avi Rubin",
+    "email": "member5@example.com"
+  },
+  {
+    "name": "Shlomo Weiss",
+    "email": "member6@example.com"
+  },
+  {
+    "name": "Mendy Gross",
+    "email": "member7@example.com"
+  },
+  {
+    "name": "Baruch Friedman",
+    "email": "member8@example.com"
+  },
+  {
+    "name": "Eli Rosen",
+    "email": "member9@example.com"
+  },
+  {
+    "name": "Noam Azulay",
+    "email": "member10@example.com"
+  },
+  {
+    "name": "Meir Goldberg",
+    "email": "member11@example.com"
+  },
+  {
+    "name": "Daniel Malka",
+    "email": "member12@example.com"
+  },
+  {
+    "name": "Itzik Peretz",
+    "email": "member13@example.com"
+  },
+  {
+    "name": "Natan Shalom",
+    "email": "member14@example.com"
+  },
+  {
+    "name": "Uri Ben David",
+    "email": "member15@example.com"
+  },
+  {
+    "name": "Elad Amar",
+    "email": "member16@example.com"
+  },
+  {
+    "name": "Yehuda Klein",
+    "email": "member17@example.com"
+  },
+  {
+    "name": "Ariel Shwartz",
+    "email": "member18@example.com"
+  },
+  {
+    "name": "Tzvi Segal",
+    "email": "member19@example.com"
+  },
+  {
+    "name": "Yonatan Dayan",
+    "email": "member20@example.com"
+  },
+  {
+    "name": "Eitan Mor",
+    "email": "member21@example.com"
+  },
+  {
+    "name": "Amir Haddad",
+    "email": "member22@example.com"
+  },
+  {
+    "name": "Binyamin Harari",
+    "email": "member23@example.com"
+  },
+  {
+    "name": "Yaakov Tzur",
+    "email": "member24@example.com"
+  },
+  {
+    "name": "Reuven Bar",
+    "email": "member25@example.com"
+  },
+  {
+    "name": "Gad Michael",
+    "email": "member26@example.com"
+  },
+  {
+    "name": "Asher Nachmani",
+    "email": "member27@example.com"
+  },
+  {
+    "name": "Yair Biton",
+    "email": "member28@example.com"
+  },
+  {
+    "name": "Oren Hadar",
+    "email": "member29@example.com"
+  },
+  {
+    "name": "Tomer Shaul",
+    "email": "member30@example.com"
+  },
+  {
+    "name": "Lior Avraham",
+    "email": "member31@example.com"
+  },
+  {
+    "name": "Simcha Peled",
+    "email": "member32@example.com"
+  },
+  {
+    "name": "Mordechai Tal",
+    "email": "member33@example.com"
+  },
+  {
+    "name": "Pinchas Carmi",
+    "email": "member34@example.com"
+  },
+  {
+    "name": "Eliezer Zohar",
+    "email": "member35@example.com"
+  },
+  {
+    "name": "Nachum Sela",
+    "email": "member36@example.com"
+  },
+  {
+    "name": "Yechiel Nissim",
+    "email": "member37@example.com"
+  },
+  {
+    "name": "Yisrael Erez",
+    "email": "member38@example.com"
+  },
+  {
+    "name": "Zevulun Amir",
+    "email": "member39@example.com"
+  },
+  {
+    "name": "Aharon Stern",
+    "email": "member40@example.com"
+  },
+  {
+    "name": "Dov Berkovitz",
+    "email": "member41@example.com"
+  },
+  {
+    "name": "Menachem Levin",
+    "email": "member42@example.com"
+  },
+  {
+    "name": "Yitzchak Golan",
+    "email": "member43@example.com"
+  },
+  {
+    "name": "Shmuel Ezra",
+    "email": "member44@example.com"
+  },
+  {
+    "name": "Ari Kaplan",
+    "email": "member45@example.com"
+  },
+  {
+    "name": "Michael Shaked",
+    "email": "member46@example.com"
+  },
+  {
+    "name": "Rafael Ozeri",
+    "email": "member47@example.com"
+  },
+  {
+    "name": "Eliyahu Shani",
+    "email": "member48@example.com"
+  },
+  {
+    "name": "Hillel Alon",
+    "email": "member49@example.com"
+  },
+  {
+    "name": "Yosef Nave",
+    "email": "member50@example.com"
+  }
+]
