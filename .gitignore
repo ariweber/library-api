@@ -2,7 +2,7 @@
 __pycache__/
 *.py[codz]
 *$py.class
-./test.ipynb
+
 # C extensions
 *.so
 
@@ -135,6 +135,7 @@ celerybeat.pid
 *.rdb
 *.aof
 *.pid
+*.ipynb
 
 # RabbitMQ
 mnesia/
