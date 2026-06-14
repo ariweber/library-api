@@ -1,80 +1,101 @@
-from database.connection import get_connection
-
-
 class MemberDB:
-    def __init__(self):
-        pass
+    def __init__(self, db):
+        self.db = db
 
-
-    def create_member(self,data: dict):
-        conn = get_connection()
+    def create_member(self, data: dict):
+        conn = self.db.connection()
         cursor = conn.cursor()
-        sql = "INSERT INTO members (email, name) VALUES (%s, %s)"
-        values =(data["email"], data["name"]) 
-        cursor.execute(sql, values)
-        conn.commit()
-        new_id = cursor.lastrowid
-        cursor.close()
-        conn.close()
-        return new_id
-
+        try:
+            sql = "INSERT INTO members (name, email) VALUES (%s, %s)"
+            values = (data["name"], data["email"])
+            cursor.execute(sql, values)
+            conn.commit()
+            return cursor.lastrowid
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
 
     def get_all_members(self):
-        conn = get_connection()
+        conn = self.db.connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM members")
-        data = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        return data
+        try:
+            cursor.execute("SELECT * FROM members")
+            return cursor.fetchall()
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
 
-    def get_book_by_id(self,id):
-        conn = get_connection()
+    def get_member_by_id(self, id):
+        conn = self.db.connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM members WHERE id = %s",(id,))
-        data = cursor.fetchone()
-        cursor.close()
-        conn.close()
-        return data
-
+        try:
+            cursor.execute("SELECT * FROM members WHERE id = %s", (id,))
+            return cursor.fetchone()
+        except Exception as e:
+            print(e)
+        finally:
+            cursor.close()
+            conn.close()
 
     def update_book(self, id: int, data: dict):
-        conn = get_connection()
+        conn = self.db.connection()
         cur = conn.cursor()
-        lst = [f"{key} =%s" for key in data.keys()]
-        keys = ",".join(lst)
-        sql = f"""UPDATE members SET {keys} WHERE id = %s"""
-        values = list(data.values()) + [id]
-        cur.execute(sql,values)
-        chench = cur.rowcount
-        conn.commit()
-        cur.close()
-        conn.close()
-        return chench
-        
+        try:
+            lst = [f"{key} =%s" for key in data.keys()]
+            keys = ",".join(lst)
+            sql = f"""UPDATE members SET {keys} WHERE id = %s"""
+            values = list(data.values()) + [id]
+            cur.execute(sql, values)
+            conn.commit()
+            return cur.rowcount > 0
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+            conn.close()
 
-        
-
-    def deactivate_member(id):
-        conn = get_connection()
+    def deactivate_member(self, id):
+        conn = self.db.connection()
         cur = conn.cursor()
-        sql = "UPDATE members SET is_activate = 0"
+        try:
+            sql = "UPDATE members SET is_active = %s WHERE id = %s"
+            cur.execute(sql, (0, id))
+            conn.commit()
+            return cur.rowcount > 0
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+            conn.close()
 
-    def books_total_count(self):
-        pass
+    def activate_member(self, id):
+        conn = self.db.connection()
+        cur = conn.cursor()
+        try:
+            sql = "UPDATE members SET is_active = 1 WHERE id = %s"
+            cur.execute(sql, (id,))
+            conn.commit()
+            return cur.rowcount > 0
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+            conn.close()
 
-    def count_available_books(self):
-        pass
-
-    def count_by_genre(self, genre):  
-        pass
-
-    def count_active_borrows_by_member(self, member_id):
-        pass  
-
-a = BookDB()
-data = {"title": "The Silent Island",
-    "author": "Jack Howard",
-    "genre": "Fiction"}
-print(a.get_book_by_id(3))
-print(a.update_book(3,data))
+    def increment_borrows(self, id):
+        conn = self.db.connection()
+        cur = conn.cursor()
+        try:
+            sql = "UPDATE members SET borrows_total = borrows_total + 1 WHERE id = %s"
+            cur.execute(sql, (id,))
+            conn.commit()
+            return cur.rowcount > 0
+        except Exception as e:
+            print(e)
+        finally:
+            cur.close()
+            conn.close()

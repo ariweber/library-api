@@ -3,7 +3,8 @@ from routers.book_routes import router as router_book
 from routers.member_routes import router as router_member
 from routers.report_routes import router as router_report
 from database.connection import DBconnection
-from database.book_db import BookDB
+from database.member_db import MemberDB
+meneger = DBconnection()
 
 app = FastAPI()
 
@@ -15,8 +16,9 @@ app.include_router(router_report)
 
 
 if __name__ == "__main__":
-    a = BookDB(DBconnection())
-    print(a.get_book_by_id(100))
+   connection = meneger.connection()
+   meneger.create_tables()
+    
     
     
   
