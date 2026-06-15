@@ -99,3 +99,16 @@ class MemberDB:
         finally:
             cur.close()
             conn.close()
+
+
+    def is_activate(self, id):
+        member = self.get_member_by_id(id)
+        if member == None:
+            return None
+        return member["is_active"] == 1
+    
+    def amount_books_by_member(self,id):
+        member = self.get_member_by_id(id)
+        if member is None:
+            return None
+        return member["borrows_total"] < 3

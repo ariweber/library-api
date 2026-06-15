@@ -62,9 +62,11 @@ class BookDB:
             elif val == "return":
                 cur.execute(sql, (1, None, id))
             else:
-                raise ValueError("invalid val")
+                return None
             conn.commit()
             return cur.rowcount
+        except Exception as e:
+            print(e)
         finally:
             cur.close()
             conn.close()
@@ -110,3 +112,12 @@ class BookDB:
         finally:
             cur.close()
             conn.close()
+
+
+    def book_is_availabl(self,id):
+            book = self.get_book_by_id(id)
+            if book == None:
+                return None
+            return book["is_available"] == 1
+        
+        

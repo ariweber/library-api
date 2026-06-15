@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Literal, Optional
 from database.book_db import BookDB
+from database.member_db import MemberDB
 from database.connection import DBconnection
 
 
@@ -19,49 +20,68 @@ class Bookupdate(BaseModel):
     is_avilable: bool | None = None
     borrowed_by_member_id: Optional[int] | None = None
 
-crud = BookDB(DBconnection())
-
+bookdb = BookDB(DBconnection())
+memberdb= MemberDB(DBconnection())
 
 router = APIRouter(prefix="/books")
 
 
 @router.post("/", status_code=201)
 def add_abook(data: Bookcreate):
-   return crud.create_book(data.model_dump())
+   return bookdb.create_book(data.model_dump())
 
 @router.get("/")
 def get_all():
-    return crud.get_all_books()
+    return bookdb.get_all_books()
 
 @router.put("/")
 def update(id: int, body: Bookupdate):
-    return crud.update_book(id, body.model_dump(exclude_unset= True))
+    return bookdb.update_book(id, body.model_dump(exclude_unset= True))
 
-@router.get("/{id}")
+@router.get("/")
 def get_by_id(id: int):
-    book = crud.get_book_by_id(id)
+    book = bookdb.get_book_by_id(id)
     if book is None:
         raise HTTPException(404, f"book {id} not found")
     return book
 
 @router.put("/{id}/borrow/{member_id}")
 def borrow(id: int, member_id: int):
-    changed = crud.set_available(id, "borrow", member_id)
-    if not changed:
-        raise HTTPException(404, f"book {id} not found")
+    member = memberdb.get_member_by_id(member_id)
+    book = bookdb.get_book_by_id(id)
+   
+    if member is None:
+        raise HTTPException(404, f"{member_id} not found")
+    elif book is None:
+        raise HTTPException(404,f"{id} not foun")
+   
+    if not memberdb.is_activate(member_id):
+        raise HTTPException(400 ,f"member {member_id} is not activate") 
+    elif not bookdb.book_is_availabl(id):
+        print(bookdb.book_is_availabl(id))
+        raise HTTPException(400, f"book {id} is not activate") 
+   
+    if bookdb.count_active_borrows_by_member(member_id) > 3:
+        raise HTTPException(400, f" {member_id} has 3 books")
+    
+    bookdb.set_available(id, "borrow", member_id)
+    memberdb.increment_borrows(member_id)
     return {"id": id, "status": "borrowed", "member_id": member_id}
 
 @router.put("/{id}/return/{member_id}")
 def return_book(id: int, member_id: int):
-    changed = crud.set_available(id, "return", member_id)
-    if not changed:
-        raise HTTPException(404, f"book {id} not found")
+    member = memberdb.get_member_by_id(member_id)
+    book = bookdb.get_book_by_id(id)
+    if member is None:
+        raise HTTPException(404, f"{member_id} not found")
+    elif book is None:
+        raise HTTPException(404,f"{id} not foun")
+    if book["borrowed_by_member_id"] != member_id:
+        raise HTTPException(400, f"book {id} was not borrowed by member {member_id}")
+    check = bookdb.set_available(id, "return", member_id)
+    if not check:
+        raise HTTPException(400)
     return {"id": id, "status": "returned"}
 
 
-@router.get("/summary/reports")
-def count_all_books():
-    return {
-        "total": crud.books_total_count(),
-        "available": crud.count_available_books()}
 

@@ -18,6 +18,8 @@ app.include_router(router_report)
 if __name__ == "__main__":
    connection = meneger.connection()
    meneger.create_tables()
+   membersdb = MemberDB(DBconnection())
+   print(membersdb.amount_books_by_member(3))
     
     
     
